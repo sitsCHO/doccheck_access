@@ -1,0 +1,13 @@
+mod.wizards.newContentElement.wizardItems.special {
+  elements {
+    doccheckaccess_login {
+      iconIdentifier = mimetypes-x-content-login
+      title = DocCheck Login
+      description = Login button for DocCheck access.
+      tt_content_defValues {
+        CType = doccheckaccess_login
+      }
+    }
+  }
+  show := addToList(doccheckaccess_login)
+}

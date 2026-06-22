@@ -1,0 +1,12 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:dc="http://typo3.org/ns/Doc2k/DoccheckAccess/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:if condition="{data.header}">
+    <h2>{data.header}</h2>
+</f:if>
+<f:debug>{_all}</f:debug>
+<a href="{dc:loginUrl(contentElementUid: data.uid)}" class="doccheck-access-login-button">
+    <f:if condition="{data.tx_doccheckaccess_button_label}">
+        <f:then>{data.tx_doccheckaccess_button_label}</f:then>
+        <f:else>Login with DocCheck</f:else>
+    </f:if>
+</a>
+</html>

@@ -1,0 +1,24 @@
+# cat=basic; type=string; label=DocCheck Client ID
+clientId =
+
+# cat=basic; type=password; label=DocCheck Client Secret
+clientSecret =
+
+
+# cat=paths; type=string; label=Callback path
+callbackPath = yourdomain.de/doccheck-access/callback/
+
+# cat=redirects; type=int+; label=Default success page uid
+successPid = 0
+
+# cat=redirects; type=int+; label=Default failure page uid
+failurePid = 0
+
+# cat=feuser; type=int+; label=FE-User UID
+frontendUserUid = 0
+
+# cat=feuser; type=int+; label=FE-Usergroup ID
+frontendUserGroupUid = 0
+
+# cat=intern; type=string; label=Token-Endpoint
+tokenEndpoint = https://auth.doccheck.com/token

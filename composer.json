@@ -1,0 +1,22 @@
+{
+  "name": "doc2k/doccheck-access",
+  "type": "typo3-cms-extension",
+  "description": "TYPO3 content element and middleware scaffold for DocCheck access handling.",
+  "version": "0.9",
+  "license": "proprietary",
+  "require": {
+    "php": ">=8.0",
+    "typo3/cms-core": "^11.5 || ^12.4 || ^13.4 || ^14.0",
+    "typo3/cms-frontend": "^11.5 || ^12.4 || ^13.4 || ^14.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Doc2k\\DoccheckAccess\\": "Classes/"
+    }
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "doccheck_access"
+    }
+  }
+}

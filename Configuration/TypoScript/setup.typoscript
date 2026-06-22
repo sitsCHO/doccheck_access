@@ -1,0 +1,7 @@
+tt_content.doccheckaccess_login =< lib.contentElement
+tt_content.doccheckaccess_login {
+  templateName = Login
+  templateRootPaths {
+    10 = EXT:doccheck_access/Resources/Private/Templates/ContentElements/
+  }
+}
