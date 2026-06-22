@@ -20,6 +20,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class CallbackMiddleware implements MiddlewareInterface
 {
     private const SESSION_KEY = 'doccheck_access';
+    private const ERROR_SESSION_KEY = 'doccheck_access_error';
 
     private DocCheckApiService $docCheckApiService;
     private FrontendLoginService $frontendLoginService;
@@ -51,13 +52,21 @@ final class CallbackMiddleware implements MiddlewareInterface
             : 0;
 
         if ($code === '') {
+            $this->storeErrorCode($request, 'missing_code');
+
             return new RedirectResponse($this->buildPageRedirectUrl($this->configurationService->getFailurePid(), $languageId), 303);
         }
 
-        $tokenResponse = $this->docCheckApiService->exchangeCodeForToken(
-            $code,
-            $this->configurationService->getAll()
-        );
+        try {
+            $tokenResponse = $this->docCheckApiService->exchangeCodeForToken(
+                $code,
+                $this->configurationService->getAll()
+            );
+        } catch (\Throwable $exception) {
+            $this->storeErrorCode($request, 'token_exchange_failed');
+
+            return new RedirectResponse($this->buildPageRedirectUrl($this->configurationService->getFailurePid(), $languageId), 303);
+        }
 
         $loginSucceeded = $this->frontendLoginService->loginFrontendUser(
             $tokenResponse,
@@ -67,6 +76,8 @@ final class CallbackMiddleware implements MiddlewareInterface
 
 
         if (!$loginSucceeded) {
+            $this->storeErrorCode($request, 'frontend_login_failed');
+
             return new RedirectResponse($this->buildPageRedirectUrl($this->configurationService->getFailurePid(), $languageId), 303);
         }
 
@@ -91,6 +102,17 @@ final class CallbackMiddleware implements MiddlewareInterface
         $sessionData = $frontendUser->getKey('ses', self::SESSION_KEY);
 
         return is_array($sessionData) ? $sessionData : [];
+    }
+
+    private function storeErrorCode(ServerRequestInterface $request, string $errorCode): void
+    {
+        $frontendUser = $this->getFrontendUser($request);
+        if (!$frontendUser instanceof FrontendUserAuthentication) {
+            return;
+        }
+
+        $frontendUser->setKey('ses', self::ERROR_SESSION_KEY, $errorCode);
+        $frontendUser->storeSessionData();
     }
 
     private function getFrontendUser(ServerRequestInterface $request): ?FrontendUserAuthentication

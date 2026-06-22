@@ -1,0 +1,6 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:dc="http://typo3.org/ns/Doc2k/DoccheckAccess/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:variable name="doccheckError" value="{dc:errorMessage()}" />
+<f:if condition="{doccheckError}">
+    <div class="doccheck-access-error">{doccheckError}</div>
+</f:if>
+</html>

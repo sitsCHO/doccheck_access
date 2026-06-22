@@ -2,7 +2,15 @@
 <f:if condition="{data.header}">
     <h2>{data.header}</h2>
 </f:if>
-<a href="{dc:loginUrl(contentElementUid: data.uid)}" class="doccheck-access-login-button">
+<f:variable name="doccheckError" value="{dc:errorMessage()}" />
+<f:if condition="{doccheckError}">
+    <div class="doccheck-access-error">{doccheckError}</div>
+</f:if>
+<f:variable name="doccheckLoginContentElementUid" value="{data.uid}" />
+<f:if condition="{data._LOCALIZED_UID}">
+    <f:variable name="doccheckLoginContentElementUid" value="{data._LOCALIZED_UID}" />
+</f:if>
+<a href="{dc:loginUrl(contentElementUid: doccheckLoginContentElementUid)}" class="doccheck-access-login-button">
     <img alt="image" width="40" src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2072%2072'%3e%3ctitle%3edoc-doccheck%3c/title%3e%3cpath%20d='M1.28,72C4.4,63.6,9.66,55.56,16.19,50.91l.52-.37-.18-.62A24.75,24.75,0,0,1,33.38,19.28a24.37,24.37,0,0,1,6.89-1h1l.16-.71A11,11,0,0,1,63,22.27a10.92,10.92,0,0,1-2.61,5.06l-.49.55.43.59a24.75,24.75,0,0,1,.29,28.61l-.38.54.41.53A54.82,54.82,0,0,1,67.87,72Z'%20fill='%23fff'%20/%3e%3cpath%20d='M34.83,26.77a9.33,9.33,0,1,0,9.32,9.32A9.33,9.33,0,0,0,34.83,26.77Zm0,17.4a8.08,8.08,0,1,1,8.08-8.08A8.08,8.08,0,0,1,34.83,44.17ZM69.16,72a50.56,50.56,0,0,0-7.85-14.41A25.62,25.62,0,0,0,61,27.94,11.92,11.92,0,1,0,40.53,17.39h-.25A25.64,25.64,0,0,0,15.66,50.17,44.24,44.24,0,0,0,0,72H5.24A39.14,39.14,0,0,1,17.55,54.89a25.67,25.67,0,0,0,7.16,8.48A66.29,66.29,0,0,0,31.64,72h3.55a46.45,46.45,0,0,1-5-5.4,25.67,25.67,0,0,0,19.86.14A18,18,0,0,1,48.49,72H51.2a24,24,0,0,0,1.48-6.53,25.58,25.58,0,0,0,5.44-4A46.1,46.1,0,0,1,63.94,72h5.22Zm-17-62a10,10,0,1,1-10,10A10,10,0,0,1,52.16,10ZM40.27,63.77v.06a20.75,20.75,0,0,1,0-41.49h.19A12.13,12.13,0,0,0,41.31,25a11.9,11.9,0,0,0,15.75,5.93,20.43,20.43,0,0,1,1.44,2.25,9.33,9.33,0,1,0,1.4,16.57A20.74,20.74,0,0,1,40.27,63.77ZM55,49.88a8.08,8.08,0,1,1,8.08-8.08A8.08,8.08,0,0,1,55,49.88ZM52.18,12.65A7.32,7.32,0,0,0,44.86,20h0a7.33,7.33,0,1,0,7.33-7.33Zm0,13.73A6.36,6.36,0,0,1,45.83,20h0a6.36,6.36,0,0,1,6.34-6.3h.08a6.36,6.36,0,0,1-.11,12.71Z'%20fill='%23000'%20/%3e%3cpath%20d='M42.93,35.37a3.67,3.67,0,1,1-3.67-3.67A3.67,3.67,0,0,1,42.93,35.37Zm16.55,2a3.67,3.67,0,1,0,3.67,3.67A3.67,3.67,0,0,0,59.48,37.41Z'%20fill='%23000'%20/%3e%3c/svg%3e">
     <span>
         <f:if condition="{data.tx_doccheckaccess_button_label}">
@@ -11,10 +19,4 @@
         </f:if>
     </span>
 </a>
-<style>
-    .doccheck-access-login-button{background:rgb(204, 0, 51);  border-radius:8px; display:inline-flex; color:#fff; text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:25px; align-items: center;}
-    .doccheck-access-login-button > span{padding:4px 15px;}
-    .doccheck-access-black{color:#000;}
-</style>
 </html>
-

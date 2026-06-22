@@ -20,6 +20,7 @@ use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 final class LoginMiddleware implements MiddlewareInterface
 {
     private const SESSION_KEY = 'doccheck_access';
+    private const ERROR_SESSION_KEY = 'doccheck_access_error';
 
     private DocCheckApiService $docCheckApiService;
     private ConfigurationService $configurationService;
@@ -60,11 +61,15 @@ final class LoginMiddleware implements MiddlewareInterface
         $queryParams = $request->getQueryParams();
         $contentElementUid = isset($queryParams['ce']) && is_numeric($queryParams['ce']) ? (int)$queryParams['ce'] : 0;
         if ($contentElementUid <= 0) {
+            $this->storeErrorCode($request, 'missing_content_element');
+
             return new RedirectResponse($this->buildPageRedirectUrl($this->configurationService->getFailurePid(), $languageId), 303);
         }
 
         $contentElement = $this->fetchContentElement($contentElementUid);
         if ($contentElement === []) {
+            $this->storeErrorCode($request, 'invalid_content_element');
+
             return new RedirectResponse(
                 $this->buildPageRedirectUrl($this->configurationService->getFailurePid(), $languageId),
                 303
@@ -130,6 +135,17 @@ final class LoginMiddleware implements MiddlewareInterface
         }
 
         $frontendUser->setKey('ses', self::SESSION_KEY, $data);
+        $frontendUser->storeSessionData();
+    }
+
+    private function storeErrorCode(ServerRequestInterface $request, string $errorCode): void
+    {
+        $frontendUser = $this->getFrontendUser($request);
+        if (!$frontendUser instanceof FrontendUserAuthentication) {
+            return;
+        }
+
+        $frontendUser->setKey('ses', self::ERROR_SESSION_KEY, $errorCode);
         $frontendUser->storeSessionData();
     }
 

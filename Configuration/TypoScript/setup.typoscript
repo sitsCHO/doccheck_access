@@ -6,6 +6,15 @@ tt_content.doccheckaccess_login {
   }
 }
 
-page.10.includeCSS{
-  deccheck = EXT:doccheck_access/Resources/Public/Css/dca.css
+tt_content.doccheckaccess_error_message = COA_INT
+tt_content.doccheckaccess_error_message {
+  10 =< lib.contentElement
+  10 {
+    templateName = ErrorMessage
+    templateRootPaths {
+      10 = EXT:doccheck_access/Resources/Private/Templates/ContentElements/
+    }
+  }
 }
+
+page.includeCSS.doccheck_access = EXT:doccheck_access/Resources/Public/Css/dca.css

@@ -8,6 +8,14 @@ mod.wizards.newContentElement.wizardItems.special {
         CType = doccheckaccess_login
       }
     }
+    doccheckaccess_error_message {
+      iconIdentifier = mimetypes-x-content-text
+      title = DocCheck Error Message
+      description = Shows the latest DocCheck access error message.
+      tt_content_defValues {
+        CType = doccheckaccess_error_message
+      }
+    }
   }
-  show := addToList(doccheckaccess_login)
+  show := addToList(doccheckaccess_login,doccheckaccess_error_message)
 }
