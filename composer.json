@@ -2,7 +2,7 @@
   "name": "doc2k/doccheck-access",
   "type": "typo3-cms-extension",
   "description": "TYPO3 content element and middleware scaffold for DocCheck access handling.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "license": "proprietary",
   "require": {
     "php": ">=8.0",

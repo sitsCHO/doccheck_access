@@ -6,6 +6,7 @@ namespace Doc2k\DoccheckAccess\ViewHelpers;
 
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use Psr\Http\Message\ServerRequestInterface;
 
 final class ErrorMessageViewHelper extends AbstractViewHelper
 {
@@ -42,9 +43,21 @@ final class ErrorMessageViewHelper extends AbstractViewHelper
 
     private function getFrontendUser(): ?FrontendUserAuthentication
     {
-        $request = $this->renderingContext->getRequest();
+        $request = null;
 
-        if (method_exists($request, 'getAttribute')) {
+        if (method_exists($this->renderingContext, 'getRequest')) {
+            $request = $this->renderingContext->getRequest();
+        }
+
+        if (
+            !$request instanceof \Psr\Http\Message\ServerRequestInterface
+            && isset($GLOBALS['TYPO3_REQUEST'])
+            && $GLOBALS['TYPO3_REQUEST'] instanceof \Psr\Http\Message\ServerRequestInterface
+        ) {
+            $request = $GLOBALS['TYPO3_REQUEST'];
+        }
+
+        if ($request instanceof \Psr\Http\Message\ServerRequestInterface) {
             $frontendUser = $request->getAttribute('frontend.user');
             if ($frontendUser instanceof FrontendUserAuthentication) {
                 return $frontendUser;
