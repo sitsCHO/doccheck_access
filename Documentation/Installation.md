@@ -48,20 +48,32 @@ The extension adds:
 
 ## TypoScript and Page TSconfig
 
-The extension provides its required TypoScript and Page TSconfig automatically. No manual TypoScript include and no Site Set are required.
+The extension ships with all required TypoScript and Page TSconfig files.
 
-The TypoScript registers rendering for:
+### TYPO3 11
 
-- `tt_content.doccheckaccess_login`
-- `tt_content.doccheckaccess_error_message`
+After installing the extension, include the provided static TypoScript and Page TSconfig in your root page:
 
-It also includes the frontend CSS:
+* **Template → Includes** → *DocCheck Access*
+* **Root Page → Resources → Page TSconfig** → *DocCheck Access*
+
+### TYPO3 12+
+
+Depending on your project setup, the configuration may already be available automatically. If the content elements do not appear, include the provided static TypoScript and Page TSconfig as described above.
+
+The TypoScript registers the rendering for:
+
+* `tt_content.doccheckaccess_login`
+* `tt_content.doccheckaccess_error_message`
+
+It also includes the frontend stylesheet:
 
 ```typoscript
 page.includeCSS.doccheck_access = EXT:doccheck_access/Resources/Public/Css/dca.css
 ```
 
-The Page TSconfig registers the content elements in the new content element wizard.
+The Page TSconfig registers the custom content elements in the New Content Element Wizard.
+
 
 ## Site Sets
 
