@@ -7,6 +7,6 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 ExtensionManagementUtility::registerPageTSConfigFile(
     'doccheck_access',
-    'Configuration/PageTsConfig/ContentElements.tsconfig',
+    'Configuration/page.tsconfig',
     'DocCheck Access'
 );
