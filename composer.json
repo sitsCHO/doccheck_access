@@ -2,7 +2,7 @@
   "name": "doc2k/doccheck-access",
   "type": "typo3-cms-extension",
   "description": "DocCheck Access is a lightweight TYPO3 extension that provides DocCheck OAuth authentication for frontend access.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "GPL-3.0-or-later",
   "require": {
     "php": ">=8.0",
